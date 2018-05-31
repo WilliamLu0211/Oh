@@ -1,0 +1,75 @@
+
+Team Oh's plans
+
+We will implement core functionalities first, then non essential extra functionalities if time permits
+All lists are ordered based on priority
+Order of implementation based on priority
+Workload sharing status denoted in "<>" brackets
+
+
+Core functionalities:
+
+1.	Initializing screen <Delegated>
+	-	Create play space
+	-	Spawn in Teemo
+2.	Teemo movement <Delegated>
+	-	Movement key functionality
+	-	Prevent Teemo from leaving play space
+3.	Teemo (basic) shooting functionality <Collaborative>
+	-	Properly spawn Teemo's projectiles
+	-	Projectile pathing
+	-	Despawn projectiles which reach play space boundaries
+4.	Minion spawning <Delegated>
+	-	Spawn minions in random positions at least a certain distance away from Teemo
+5.	Minion movement <Collaborative>
+	-	Intialize minions with a random direction
+	-	Properly redirect (bouncing) minions which reach the boundaries
+6.	Teemo projectile & minion interaction <Collaborative>
+	-	Calculate minion remaining health
+7.	Spawning pickup functionality (coins, abilities, diamonds) <Collaborative>
+8.	Minion death <Delegated>
+	-	Properly despawn minions
+	-	Pickup spawning functionality
+9.	Teemo & pickup interactions <Collaborative>
+	-	Appropriately handle pickup
+	-	Despawn pickup
+10.	Minion (basic) shooting functionality <Delegated>
+	-	Properly spawn minion projectiles
+	-	Projectile pathing
+	-	Despawn projectiles which reach play space boundaries
+11.	Minion projectile & Teemo interaction <Collaborative>
+	-	Death/game over
+12.	Ability attributes
+13.	Scoring <Delegated>
+
+Order of ability implementation:
+1.	Upgrade <Delegated>
+2.	Ghost / Twin <Delegated>
+3.	Angel <Delegated>
+4.	Boost <Collaborative>
+5.	Trident <Collaborative>
+6.	Magnet <Collaborative>
+
+
+Extra non essential functionalities:
+
+1.	Multiple minion types <Delegated>
+	-	Different stats
+	-	Different hitboxes/models
+2.	Bosses <Collaborative>
+3.	Menu functionality (if possible) <Collaborative>
+	Options:
+	-	New game
+	-	Pausing/Unpausing
+	-	Access leaderboard
+4.	Local leaderboard <Delegated>
+	-	Storing scores
+5.	Advanced hitboxes/models (if possible) <Delegated>
+	-	Sprites
+6.	Unnamed ability <Collaborative>
+	-	Next minion Teemo shoots becomes an ally minion
+		Minion shoots and can destroy enemies, can also be destroyed by enemies
+		Can't be controlled by player
+	-	Taunt effect?
+	
+	
