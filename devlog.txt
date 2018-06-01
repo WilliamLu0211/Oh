@@ -65,6 +65,12 @@ LESSONS LEARNED
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 
+2018-05-31
+--------------------------------------------------------------
+Brandon Chong :: Set up devlog and formatting. Helped with UML and flowchart.
+Andrew Shao :: Edited UML and designed flowchart showing class hierarchy. 
+William Lu :: Wrote UML of all classes and methods. Helped with flowchart.
+
 yyyy-mm-dd
 --------------------------------------------------------------
 <Member> :: <Thing member did.>
