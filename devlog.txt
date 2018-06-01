@@ -1,20 +1,15 @@
 Oh
 Brandon Chong
-<Member Buttercup>
-<Member Blossom>
-pd <pd#>
+Andrew Shao
+William Lu
+pd <pd2>
 ---------------------
-<Project>
+Teemo
 
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 USAGE:
-* Replace all fields, angle brackets included, with specified info.
-  eg, pd <pd#> --> pd 3
-* Delete these instructions once all teammates understand usage.
-  (from tilde bar above to tilde bar below)
-
 devlog--
 Use keyboard shortcut to jump to end,
  replicate entry template,
