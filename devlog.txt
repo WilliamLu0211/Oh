@@ -1,10 +1,10 @@
 Oh
 Brandon Chong
-Andrew Shao
 William Lu
-pd <pd2>
+Andrew Shao
+pd 2
 ---------------------
-Teemo
+Teemo Run
 
 
 
@@ -65,15 +65,21 @@ LESSONS LEARNED
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 
+2018-05-30
+--------------------------------------------------------------
+Brandon Chong :: Edited proposal and plan
+William Lu :: Wrote proposal and edited plan
+Andrew Shao :: Edited proposal and drafted plan
+
 2018-05-31
 --------------------------------------------------------------
 Brandon Chong :: Set up devlog and formatting. Helped with UML and flowchart.
-Andrew Shao :: Edited UML and designed flowchart showing class hierarchy. 
 William Lu :: Wrote UML of all classes and methods. Helped with flowchart.
+Andrew Shao :: Edited UML and designed flowchart showing class hierarchy. 
 
 yyyy-mm-dd
 --------------------------------------------------------------
-<Member> :: <Thing member did.>
-<Member> :: <Thing member did.>
-<Member> :: <Thing member did.>
+Brandon Chong :: 
+William Lu :: 
+Andrew Shao :: 
 ==============================================================
