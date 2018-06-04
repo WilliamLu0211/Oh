@@ -1,24 +1,40 @@
-class Bullet{
-
-  int dmg;
-  float x, y, dx, dy;
-  color c;
-  final int r = 5;
+public class Bullet extends Unit {
   
-  Bullet( int newDmg, float newX, float newY, float newDx, float newDy, color newC ){
-    dmg = newDmg;
-    x = newX;
-    y = newY;
-    dx = newDx;
-    dy = newDy;
-    c = newC;
+  private boolean _friendly;
+  private float _targetX, _targetY, _bearing;
+  private float _speed;
+  private int _firingMode;
+  
+  private Bullet( boolean friendly, float speed, float x, float y, color c ) {
+    super( x, y, 5, createShape( ELLIPSE, 0, 0, 10, 10 ), c );
+    _friendly = friendly;
+    _speed = speed;
   }
   
-  void move(){
-    x += dx;
-    y += dy;
-    fill(c);
-    ellipse(x, y, 2*r, 2*r);
+  public Bullet( boolean friendly, float bearing, float speed, float x, float y, color c ) {
+    this( friendly, speed, x, y, c );
+    _bearing = bearing;
+    _firingMode = 0;
   }
-
+  
+  public Bullet( boolean friendly, float targetX, float targetY, float speed, float x, float y, color c ) {
+    this( friendly, speed, x, y, c );
+    _targetX = targetX;
+    _targetY = targetY;
+    _firingMode = 1;
+  }
+  
+  public boolean friendly() {
+    return _friendly;
+  }
+  
+  public void move() {
+    if ( _firingMode == 0 ) {
+      super.move( _bearing, _speed );
+    }
+    else {
+      super.move( _targetX, _targetY, _speed );
+    }
+  }
+  
 }
