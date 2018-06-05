@@ -9,8 +9,8 @@ public class Teemo extends Unit { //<>//
     super( 700, 400, 20);
     _shape = createShape(ELLIPSE, 0, 0, 2*_r, 2*_r);
     _shape.setFill(color( 0, 175, 0 ));
-    _dmg = 10;
-    _attackSpeed = 60;
+    _dmg = 100;
+    _attackSpeed = 20;
     super.setTime( 1 );
     _score = 0;
     _speed = 1.5;
@@ -35,8 +35,9 @@ public class Teemo extends Unit { //<>//
       dy = _speed * y * msMultiplier / sqrt(2);
     }
     _x += dx;
-    _y += dy;    
-    if (_x < _r || _x > 1400 - _r || _y < _r || _y > 800 - _r) {
+    _y += dy;
+    if (_x <= _r || _x >= 1400 - _r ||
+        _y <= _r || _y >= 800 - _r) {
       _x -= dx;
       _y -= dy;
     }
@@ -67,7 +68,7 @@ public class Teemo extends Unit { //<>//
     return _score;
   }
 
-  public TBullet[] shoot( float x, float y ) {
+  public TBullet[] shoot() {
     float dmgMultiplier = 1;
     TBullet[] retArr;
 
@@ -116,13 +117,13 @@ public class Teemo extends Unit { //<>//
       _abilityDurations[2] += 20 * (int)frameRate;
     }
     if ( type == 3 ) {//damage upgrade
-      _dmg += 10;
+      _dmg += 20;
     }
     if ( type == 4 ) {//ghost
       _abilityDurations[4] += 15 * (int)frameRate;
     }
     if ( type == 5 ) {//trident
-      _abilityDurations[5] += 5 * (int)frameRate;
+      _abilityDurations[5] += 10 * (int)frameRate;
     }
     if ( type == 6 ) {//rage
       _abilityDurations[6] += 20 * (int)frameRate;

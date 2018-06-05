@@ -37,25 +37,26 @@ void setup() {
   //initialize values
   _minionSpawnTime = _minionSpawnTimer = 120;//frames between checking to spawn minions or not; frames before next check
   _dropSpawnTime = _dropSpawnTimer = 360;//frames between checking to spawn drop or not; frames before next check
-  _minionHealth = 10;//minion health
-  _minionSpawnRate = 0.5;//odds of spawning a minion during a check
+  _minionHealth = 20;//minion health
+  _minionSpawnRate = 0.5;//odds of spawningsd a minion during a check
   _dropSpawnRate = 0.5;//odds of spawning a drop during a check
   _abilitySpawnRate = 0.5;//odds of spawning ability instead of coin
 
   //start game with 1 minion on screen, OPTIONAL
-  addNewMinion();  
+  addNewMinion();
 }
 
 //helper methods
 void addNewMinion() {//spawns in new minion at random location
-  float tmpX, tmpY;
-  tmpX = random( 1370 ) + 15;
-  tmpY = random( 770 ) + 15;
-  while ( sq( tmpX - _t.getX() ) + sq( tmpY - _t.getY() ) < 250000 ) {//forces location to be certain distance away from Teemo
-    tmpX = random( 1388 ) + 8;
-    tmpY = random( 788 ) + 8;
+  float mX, mY;
+  mX = random( 1300 ) + 50;
+  mY = random( 700 ) + 50;
+  while ( sq( mX - _t.getX() ) + sq( mY - _t.getY() ) < 40000 ) {//forces location to be certain distance away from Teemo
+    mX = random( 1300 ) + 50;
+    mY = random( 700 ) + 50;
   }
-  _minions.add( new Minion( _minionHealth, tmpX, tmpY ) );
+  _minions.add( new Minion( _minionHealth, mX, mY ) );
+  _minionHealth += 10;
 }
 
 void addNewAbility( float x, float y ) {//spawns in new ability drop at (x,y)
@@ -126,13 +127,13 @@ void draw() {
 
   //"You may fire when ready"
   if ( _t.attackReady() ) {//mouse has been clicked/held down AND Teemo ready to fire _mouse && 
-    for ( Bullet b : _t.shoot( mouseX, mouseY ) ) {//shoot at mouse location
+    for ( Bullet b : _t.shoot() ) {//shoot at mouse location
       _bullets.add( b );//spawns bullet
     }
   }
 
   //check all minions
-  for ( int i = _minions.size() - 1; i >= 0; i-- ) {
+  for ( int i = 0; i < _minions.size(); i++ ) {
     _minions.get( i ).move();//move minion forward
     if ( _minions.get( i ).attackReady() ) {//check if minion is ready to shoot
       _bullets.add( _minions.get( i ).shoot( _t.getX(), _t.getY() ) );//minion shoots, bullet spawned
@@ -270,12 +271,4 @@ void keyReleased() {
       _spaceLock = false;//space ready to be pressed again
     }
   }
-}
-
-void mousePressed() {
-  _mouse = true;
-}
-
-void mouseReleased() {
-  _mouse = false;
 }

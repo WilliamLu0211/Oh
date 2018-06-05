@@ -6,7 +6,7 @@ public class Item extends Unit {
     super( x, y, 20 );
     _shape = s;
     _shape.setFill(c);
-    _despawnTime = 6 * (int)frameRate;
+    _despawnTime = 10 * (int)frameRate;
     super.setTime( _despawnTime );
   }
   

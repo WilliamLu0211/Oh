@@ -1,19 +1,18 @@
 public class Minion extends Unit {
 
-  private int _health, _attackSpeed, _speed;
-  private float dx, dy, _angle;
+  private int _health, _attackSpeed;
+  private float _dx, _dy;
 
   public Minion( int health, float x, float y ) {
     super( x, y, 15 );
     _shape = createShape(ELLIPSE, 0, 0, 2*_r, 2*_r);
-    _shape.setFill( color( 110, 0, 0 ) );
+    _shape.setFill( color( 200, 0, 0 ) );
     _health = health;
     _attackSpeed = 360;
-    _speed = 1;
     super.setTime( _attackSpeed / 2 );
-    _angle = (float)Math.random() * PI * 2;
-    dx = cos( _angle ) * _speed;
-    dy = sin( _angle ) * _speed;
+    float angle = (float)Math.random() * PI * 2;
+    _dx = cos( angle );
+    _dy = sin( angle );
   }
 
   public boolean attackReady() {
@@ -33,26 +32,30 @@ public class Minion extends Unit {
   }
 
   public void move() {
-    _x += dx;
-    _y += dy;
-    if (_x < _r || _x > 1400 - _r || _y < _r || _y > 800 - _r) {
-      _x -= dx;
-      _y -= dy;
-      _angle += PI / 2;
-      dx = cos( _angle ) * _speed;
-      dy = sin( _angle ) * _speed;
-      _x += dx;
-      _y += dy;    
-      if (_x < _r || _x > 1400 - _r || _y < _r || _y > 800 - _r) {
-        _x -= dx;
-        _y -= dy;
-        _angle -= PI;
-        dx = cos( _angle ) * _speed;
-        dy = sin( _angle ) * _speed;
-        _x += dx;
-        _y += dy;
-      }
-    }
+    _x += _dx;
+    _y += _dy;
+    //if (_x < _r || _x > 1400 - _r || _y < _r || _y > 800 - _r) {
+    //  _x -= dx;
+    //  _y -= dy;
+    //  _angle += PI / 2;
+    //  dx = cos( _angle ) * _speed;
+    //  dy = sin( _angle ) * _speed;
+    //  _x += dx;
+    //  _y += dy;    
+    //  if (_x < _r || _x > 1400 - _r || _y < _r || _y > 800 - _r) {
+    //    _x -= dx;
+    //    _y -= dy;
+    //    _angle -= PI;
+    //    dx = cos( _angle ) * _speed;
+    //    dy = sin( _angle ) * _speed;
+    //    _x += dx;
+    //    _y += dy;
+    //  }
+    //}
+    if (_x <= _r || _x >= 1400 - _r)
+      _dx = -_dx;
+    if (_y <= _r || _y >= 800 - _r)
+      _dy = -_dy;
   }
 
   public MBullet shoot( float x, float y ) {
