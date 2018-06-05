@@ -49,8 +49,8 @@ void setup() {
 //helper methods
 void addNewMinion() {//spawns in new minion at random location
   float tmpX, tmpY;
-  tmpX = random( 1384 ) + 8;
-  tmpY = random( 784 ) + 8;
+  tmpX = random( 1370 ) + 15;
+  tmpY = random( 770 ) + 15;
   while ( sq( tmpX - _t.getX() ) + sq( tmpY - _t.getY() ) < 250000 ) {//forces location to be certain distance away from Teemo
     tmpX = random( 1388 ) + 8;
     tmpY = random( 788 ) + 8;
@@ -98,7 +98,6 @@ void gameOver() {//oh no
 void draw() {
 
   clear();//IMPORTANT
-
   if ( keyPressed ) {
     if ( SPACE ) {//space pressed
       _t.use();

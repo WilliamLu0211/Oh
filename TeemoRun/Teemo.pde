@@ -1,10 +1,10 @@
 public class Teemo extends Unit { //<>//
-  
+
   private int _dmg, _attackSpeed, _score;
   private Queue<Ability> _abilities;
   private int[] _abilityDurations;
   private float _speed;
-  
+
   public Teemo() {
     super( 700, 400, 20);
     _shape = createShape(ELLIPSE, 0, 0, 2*_r, 2*_r);
@@ -17,58 +17,66 @@ public class Teemo extends Unit { //<>//
     _abilities = new Queue();
     _abilityDurations = new int[8];
   }
-  
+
   public void move( int x, int y ) {
-    float dx = 0, dy = 0;
+    float dx = 0, dy = 0, msMultiplier = 1;
+    if ( _abilityDurations[4] > 0 ) {
+      msMultiplier += 1;
+    }
+    if ( _abilityDurations[0] > 0 ) {
+      msMultiplier *= 2;
+    }
     if (x == 0)
-      dy = y * _speed;
+      dy = y * _speed * msMultiplier;
     else if (y == 0)
-      dx = x * _speed;
+      dx = x * _speed * msMultiplier;
     else {
-      dx = _speed * x / sqrt(2);
-      dy = _speed * y / sqrt(2);
+      dx = _speed * x * msMultiplier / sqrt(2);
+      dy = _speed * y * msMultiplier / sqrt(2);
     }
     _x += dx;
-    _y += dy;
+    _y += dy;    
+    if (_x < _r || _x > 1400 - _r || _y < _r || _y > 800 - _r) {
+      _x -= dx;
+      _y -= dy;
+    }
   }
-  
+
   public boolean attackReady() {
     return super.getTime() == 0;
   }
-  
+
   public boolean isBoosted() {
     return _abilityDurations[0] > 0;
   }
-  
+
   public boolean isMagnetized() {
     return _abilityDurations[2] > 0;
   }
-  
+
   public void attackReset() {
     if ( _abilityDurations[6] > 0 ) {
       super.setTime( _attackSpeed / 2 );
-    }
-    else {
+    } else {
       super.setTime( _attackSpeed );
     }
   }
-  
+
   public int score( int time ) {
     _score += time;
     return _score;
   }
-  
+
   public TBullet[] shoot( float x, float y ) {
     float dmgMultiplier = 1;
     TBullet[] retArr;
-    
+
     if ( _abilityDurations[5] > 0 ) {
       retArr = new TBullet[3];
-    }
-    else {
+    } else {
       retArr = new TBullet[1];
     }
-    
+
     if ( _abilityDurations[1] > 0 ) {
       dmgMultiplier *= 2;
     }
@@ -76,7 +84,7 @@ public class Teemo extends Unit { //<>//
       dmgMultiplier = 10000;
     }
     attackReset();
-    
+
     retArr[0] = new TBullet( 0, (int)(_dmg * dmgMultiplier), _x, _y);
     if ( _abilityDurations[5] > 0 ) {
       retArr[1] = new TBullet( PI/6, (int)(_dmg * dmgMultiplier), _x, _y );
@@ -84,14 +92,14 @@ public class Teemo extends Unit { //<>//
     }
     return retArr;
   }
-  
+
   public void pickUp( Item i ) {
     if ( i instanceof Coin )
       _score += ((Coin)i).getValue();
     else
       _abilities.enqueue( (Ability)i );
   }
-  
+
   public void use() {
     if ( _abilities.isEmpty() ) {
       return;
@@ -120,28 +128,26 @@ public class Teemo extends Unit { //<>//
       _abilityDurations[6] += 20 * (int)frameRate;
     }
     if ( type == 7 ) {//attack speed upgrade
-      _attackSpeed *= 0.8; 
+      _attackSpeed *= 0.8;
     }
   }
-  
+
   public void tick() {
     super.tick();
-    for( int i = 0; i < _abilityDurations.length; i++ ) {
+    for ( int i = 0; i < _abilityDurations.length; i++ ) {
       if ( _abilityDurations[i] > 0 ) {
         _abilityDurations[i]--;
       }
     }
   }
-  
+
   public void spawn() {
     if ( _abilityDurations[0] > 0 ) {
       fill( 255, 255, 255 );
       //shape( createShape( ELLIPSE, 0, 0, 40, 40 ), getX(), getY() );
       ellipse(getX(), getY(), 40, 40);
-    }
-    else {
+    } else {
       super.spawn();
     }
   }
-  
 }

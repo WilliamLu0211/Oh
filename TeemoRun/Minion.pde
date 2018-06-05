@@ -1,7 +1,7 @@
 public class Minion extends Unit {
 
-  private int _health, _attackSpeed;
-  private float dx, dy;
+  private int _health, _attackSpeed, _speed;
+  private float dx, dy, _angle;
 
   public Minion( int health, float x, float y ) {
     super( x, y, 15 );
@@ -9,15 +9,17 @@ public class Minion extends Unit {
     _shape.setFill( color( 110, 0, 0 ) );
     _health = health;
     _attackSpeed = 360;
+    _speed = 1;
     super.setTime( _attackSpeed / 2 );
-    dx = (float)Math.random();
-    dy = sqrt( 1 - sq(dx) );
+    _angle = (float)Math.random() * PI * 2;
+    dx = cos( _angle ) * _speed;
+    dy = sin( _angle ) * _speed;
   }
-  
+
   public boolean attackReady() {
     return super.getTime() == 0;
   }
-  
+
   public void attackReset() {
     super.setTime( _attackSpeed );
   }
@@ -33,10 +35,24 @@ public class Minion extends Unit {
   public void move() {
     _x += dx;
     _y += dy;
-    if (_x < _r || _x > 1400 - _r)
-      dx = -dx;
-    if (_y < _r || _y > 800 - _r)
-      dy = -dy;
+    if (_x < _r || _x > 1400 - _r || _y < _r || _y > 800 - _r) {
+      _x -= dx;
+      _y -= dy;
+      _angle += PI / 2;
+      dx = cos( _angle ) * _speed;
+      dy = sin( _angle ) * _speed;
+      _x += dx;
+      _y += dy;    
+      if (_x < _r || _x > 1400 - _r || _y < _r || _y > 800 - _r) {
+        _x -= dx;
+        _y -= dy;
+        _angle -= PI;
+        dx = cos( _angle ) * _speed;
+        dy = sin( _angle ) * _speed;
+        _x += dx;
+        _y += dy;
+      }
+    }
   }
 
   public MBullet shoot( float x, float y ) {
@@ -45,5 +61,4 @@ public class Minion extends Unit {
     attackReset();
     return new MBullet( x, y, getX(), getY() );
   }
-  
 }
