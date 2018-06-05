@@ -1,22 +1,34 @@
 public class Item extends Unit {
   
   private int _despawnTime;
-  private float _speed;
  
   public Item( float x, float y, PShape s, color c ) {
-    super( x, y, 24, s, c );
+    super( x, y, 20 );
+    _shape = s;
+    _shape.setFill(c);
     _despawnTime = 6 * (int)frameRate;
     super.setTime( _despawnTime );
-    _speed = 0;
   }
   
   public boolean despawnReady() {
     return super.getTime() == 0;
   }
   
+  private float normalizeX( float x, float sqNorm ){
+    return x / sqrt(sqNorm);
+  }
+  
+  private float normalizeY( float y, float sqNorm ){
+    return y / sqrt(sqNorm);
+  }
+  
   public void move( Teemo t ) {
-    _speed = pow( 0.5, distanceTo( t ) / 50 ) * 10;
-    move( t.getX(), t.getY(), _speed );
+    float sqDistance = sq(_x - t._x) + sq(_y - t._y);
+    float speed = 20 / sqDistance;
+    float dx = speed * normalizeX( t._x - _x, sqDistance);
+    float dy = speed * normalizeY( t._y - _y, sqDistance);
+    _x += dx;
+    _y += dy;
   }
   
 }

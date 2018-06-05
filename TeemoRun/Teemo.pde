@@ -1,34 +1,35 @@
 public class Teemo extends Unit { //<>//
   
   private int _dmg, _attackSpeed, _score;
-  private float _speed, _r;
   private Queue<Ability> _abilities;
-  private int[] _abilityDurations; 
+  private int[] _abilityDurations;
+  private float _speed;
   
   public Teemo() {
-    super( 700, 400, 20, createShape( ELLIPSE, 0, 0, 40, 40 ), color( 0, 175, 0 ) );
+    super( 700, 400, 20);
+    _shape = createShape(ELLIPSE, 0, 0, 2*_r, 2*_r);
+    _shape.setFill(color( 0, 175, 0 ));
     _dmg = 10;
     _attackSpeed = 60;
     super.setTime( 1 );
     _score = 0;
     _speed = 1.5;
-    _r = 20;
     _abilities = new Queue();
     _abilityDurations = new int[8];
   }
   
-  public void move( int direction ) {
-    float msMultiplier = 1;
-    if ( _abilityDurations[4] > 0 ) {
-      msMultiplier += 1;
+  public void move( int x, int y ) {
+    float dx = 0, dy = 0;
+    if (x == 0)
+      dy = y * _speed;
+    else if (y == 0)
+      dx = x * _speed;
+    else {
+      dx = _speed * x / sqrt(2);
+      dy = _speed * y / sqrt(2);
     }
-    if ( _abilityDurations[0] > 0 ) {
-      msMultiplier *= 2;
-    }
-    super.move( direction * QUARTER_PI, _speed * msMultiplier );
-    if ( outOfBounds() ) {
-      super.move( direction * QUARTER_PI + PI, _speed * msMultiplier );
-    }
+    _x += dx;
+    _y += dy;
   }
   
   public boolean attackReady() {
@@ -58,33 +59,16 @@ public class Teemo extends Unit { //<>//
   }
   
   public TBullet[] shoot( float x, float y ) {
-    float dy = super.getY() - y;
-    float dx = x - super.getX();
-    float bearing;
     float dmgMultiplier = 1;
     TBullet[] retArr;
+    
     if ( _abilityDurations[5] > 0 ) {
       retArr = new TBullet[3];
     }
     else {
       retArr = new TBullet[1];
     }
-    if ( dx >= 0 ) {
-      if ( dy == 0 ) {
-        bearing = 0;
-      }
-      else {
-        bearing = atan( dy / dx );
-      }
-    }
-    else {
-      if ( dy == 0 ) {
-        bearing = PI;
-      }
-      else {
-        bearing = atan( dy / dx ) + PI;
-      }
-    }
+    
     if ( _abilityDurations[1] > 0 ) {
       dmgMultiplier *= 2;
     }
@@ -92,23 +76,20 @@ public class Teemo extends Unit { //<>//
       dmgMultiplier = 10000;
     }
     attackReset();
-    retArr[0] = new TBullet( (int)(_dmg * dmgMultiplier), bearing, super.getX() + (_r + 5) * cos( bearing ), super.getY() - (_r + 5) * sin( bearing ) );     
+    
+    retArr[0] = new TBullet( 0, (int)(_dmg * dmgMultiplier), _x, _y);
     if ( _abilityDurations[5] > 0 ) {
-      retArr[1] = new TBullet( (int)(_dmg * dmgMultiplier), bearing + PI/6, super.getX() + (_r + 5) * cos( bearing ), super.getY() - (_r + 5) * sin( bearing ) );
-      retArr[2] = new TBullet( (int)(_dmg * dmgMultiplier), bearing - PI/6, super.getX() + (_r + 5) * cos( bearing ), super.getY() - (_r + 5) * sin( bearing ) );
+      retArr[1] = new TBullet( PI/6, (int)(_dmg * dmgMultiplier), _x, _y );
+      retArr[2] = new TBullet( -PI/6, (int)(_dmg * dmgMultiplier), _x, _y );
     }
     return retArr;
   }
   
   public void pickUp( Item i ) {
-    if ( i instanceof Coin ) {
-      Coin c = (Coin)i;
-      _score += c.getValue();
-    }
-    else {
-      Ability a = (Ability)i;
-      _abilities.enqueue( a );
-    }
+    if ( i instanceof Coin )
+      _score += ((Coin)i).getValue();
+    else
+      _abilities.enqueue( (Ability)i );
   }
   
   public void use() {
@@ -155,7 +136,8 @@ public class Teemo extends Unit { //<>//
   public void spawn() {
     if ( _abilityDurations[0] > 0 ) {
       fill( 255, 255, 255 );
-      shape( createShape( ELLIPSE, 0, 0, 40, 40 ), getX(), getY() );
+      //shape( createShape( ELLIPSE, 0, 0, 40, 40 ), getX(), getY() );
+      ellipse(getX(), getY(), 40, 40);
     }
     else {
       super.spawn();

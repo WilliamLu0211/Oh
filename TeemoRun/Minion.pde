@@ -1,20 +1,17 @@
 public class Minion extends Unit {
 
   private int _health, _attackSpeed;
-  private float _speed, _bearing, _r;
+  private float dx, dy;
 
-  public Minion( int health, float bearing, float x, float y ) {
-    super( x, y, 16, createShape( ELLIPSE, 0, 0, 32, 32 ), color( 110, 0, 0 ) );
+  public Minion( int health, float x, float y ) {
+    super( x, y, 15 );
+    _shape = createShape(ELLIPSE, 0, 0, 2*_r, 2*_r);
+    _shape.setFill( color( 110, 0, 0 ) );
     _health = health;
     _attackSpeed = 360;
     super.setTime( _attackSpeed / 2 );
-    _speed = 1;
-    _bearing = bearing;
-    _r = 8;
-  }
-
-  public float getBearing() {
-    return _bearing;
+    dx = (float)Math.random();
+    dy = sqrt( 1 - sq(dx) );
   }
   
   public boolean attackReady() {
@@ -32,23 +29,14 @@ public class Minion extends Unit {
   public boolean isAlive() {
     return _health > 0;
   }
-  
-  public boolean touching( Teemo t ) {
-    return distanceTo( t ) <= 18;
-  }
 
   public void move() {
-    super.move( _bearing, _speed);
-    if ( super.outOfBounds() ) {
-      super.move( _bearing + PI, _speed );
-      _bearing += HALF_PI;
-      super.move( _bearing, _speed);
-      if ( super.outOfBounds() ) {
-        super.move( _bearing + PI, _speed );
-        _bearing -= PI;
-        super.move( _bearing, _speed);
-      }
-    }
+    _x += dx;
+    _y += dy;
+    if (_x < _r || _x > 1400 - _r)
+      dx = -dx;
+    if (_y < _r || _y > 800 - _r)
+      dy = -dy;
   }
 
   public MBullet shoot( float x, float y ) {

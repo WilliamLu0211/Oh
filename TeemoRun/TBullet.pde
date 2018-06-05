@@ -2,17 +2,13 @@ public class TBullet extends Bullet {
   
   private int _dmg;
   
-  public TBullet( int dmg, float bearing, float x, float y) {
-    super( true, bearing, 10, x, y, color( 0, 175, 0 ) );
+  public TBullet( float tilt, int dmg, float x, float y ){
+    super( tilt, mouseX, mouseY, 10, x, y, color( 0, 175, 0 ) );
     _dmg = dmg;
   }
-  
+
   public int getDamage() {
     return _dmg;
-  }
-  
-  public boolean hitMinion( Minion m ) {
-    return distanceTo( m ) <= 21;
   }
   
 }

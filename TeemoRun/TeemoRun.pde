@@ -1,5 +1,5 @@
 //variables to aid with controls
-boolean[] _keys;  //true = key currently pressed down  0:W 1:A 2:S 3:D 4:SPACE 5:ESCAPE
+boolean W, A, S, D, SPACE, ESCAPE;  //true = key currently pressed down  0:W 1:A 2:S 3:D 4:SPACE 5:ESCAPE
 boolean _mouse; //true = mouse currently pressed down
 boolean _spaceLock; //makes sure holding down space isn't read as space pressed repeatedly
 
@@ -21,8 +21,6 @@ void setup() {
 
   frameRate( 120 );//120fps :O
   size( 1400, 800 );
-
-  _keys = new boolean[6];
 
   //initialize Teemo
   _t = new Teemo();
@@ -57,7 +55,7 @@ void addNewMinion() {//spawns in new minion at random location
     tmpX = random( 1388 ) + 8;
     tmpY = random( 788 ) + 8;
   }
-  _minions.add( new Minion( _minionHealth, random( 360 ), tmpX, tmpY ) );
+  _minions.add( new Minion( _minionHealth, tmpX, tmpY ) );
 }
 
 void addNewAbility( float x, float y ) {//spawns in new ability drop at (x,y)
@@ -90,7 +88,6 @@ void addNewCoin( float x, float y ) {//spawns in new coin drop
 void gameOver() {//oh no
   clear();
   textSize( 64 );//font size
-  rectMode( CENTER );//uh idk
   text( "GAME OVER", 700, 400, 900, 200 );
   textSize( 16 );//font size
   text( "Score: " + _t.score( frameCount / 5 ), 700, 700, 900, 200);
@@ -103,30 +100,30 @@ void draw() {
   clear();//IMPORTANT
 
   if ( keyPressed ) {
-    if ( _keys[4] ) {//space pressed
+    if ( SPACE ) {//space pressed
       _t.use();
-    } else if ( _keys[0] ) {
-      if ( _keys[1] ) {//W & A
-        _t.move( 3 );//up & left
-      } else if ( _keys[3] ) {//W & D
-        _t.move( 1 );//up & right
+    } else if ( W ) {
+      if ( A ) {//W & A
+        _t.move( -1, -1 );//up & left
+      } else if ( D ) {//W & D
+        _t.move( 1, -1 );//up & right
       } else {//only W
-        _t.move( 2 );//up
+        _t.move( 0, -1 );//up
       }
-    } else if ( _keys[2] ) {
-      if ( _keys[1] ) {//S & A
-        _t.move( 5 );//down & left
-      } else if ( _keys[3] ) {//S & D
-        _t.move( 7 );//down & right
+    } else if ( S ) {
+      if ( A ) {//S & A
+        _t.move( -1, 1 );//down & left
+      } else if ( D ) {//S & D
+        _t.move( 1, 1 );//down & right
       } else {//only S
-        _t.move( 6 );//down
+        _t.move( 0, 1 );//down
       }
-    } else if ( _keys[1] ) {//only A
-      _t.move( 4 );//left
+    } else if ( A ) {//only A
+      _t.move( -1, 0 );//left
     } else {//only D
-      _t.move( 0 );//right
+      _t.move( 1, 0 );//right
     }
-  }  
+  }
 
   //"You may fire when ready"
   if ( _t.attackReady() ) {//mouse has been clicked/held down AND Teemo ready to fire _mouse && 
@@ -141,7 +138,7 @@ void draw() {
     if ( _minions.get( i ).attackReady() ) {//check if minion is ready to shoot
       _bullets.add( _minions.get( i ).shoot( _t.getX(), _t.getY() ) );//minion shoots, bullet spawned
     }
-    if ( _minions.get( i ).touching( _t ) ) {//check if minion is touching Teemo
+    if ( _minions.get( i ).touches( _t ) ) {//check if minion is touching Teemo
       if ( _t.isBoosted() ) {//check if Teemo invulnerable
         _minions.remove( i );//rekt
       } else {
@@ -153,10 +150,10 @@ void draw() {
   TBullet tmpTB;//temporary storage for Teemo bullets
   MBullet tmpMB;//temporary storage for minion bullets
   for ( int i = _bullets.size() - 1; i >= 0; i-- ) {//check all bullets
-    if ( _bullets.get( i ).friendly() ) {//bullet is a Teemo bullet
+    if ( _bullets.get( i ) instanceof TBullet ) {//bullet is a Teemo bullet
       tmpTB = (TBullet)_bullets.get( i );
       for ( int j = _minions.size() - 1; j >= 0; j-- ) {//check all minions
-        if ( tmpTB.hitMinion( _minions.get( j ) ) ) {//check if bullet hit minion
+        if ( tmpTB.touches( _minions.get( j ) ) ) {//check if bullet hit minion
           _minions.get( j ).hit( tmpTB );//deduct health
           if ( !_minions.get( j ).isAlive() ) {//if hit was fatal
             if ( _dropSpawnTimer == 0 ) {//ready to check to spawn a drop or not
@@ -177,7 +174,7 @@ void draw() {
       }
     } else {
       tmpMB = (MBullet)_bullets.get( i );
-      if ( tmpMB.hitTeemo( _t ) && !_t.isBoosted() ) {//man down
+      if ( tmpMB.touches( _t ) && !_t.isBoosted() ) {//man down
         gameOver();//mama mia
         break;
       }
@@ -207,7 +204,7 @@ void draw() {
 
   //check all items
   for ( int i = _items.size() - 1; i >= 0; i-- ) {
-    if ( _t.distanceTo( _items.get( i ) ) <= 12 ) {//if Teemo is next to or on top of item
+    if ( _t.touches( _items.get(i) ) ){//if Teemo is next to or on top of item
       _t.pickUp( _items.get( i ) );//Teemo picks up item
       _items.remove( i );//despawns item
     } else if ( _t.isMagnetized() ) {//Teemo has magnet ability active
@@ -238,19 +235,19 @@ void draw() {
 
 void keyPressed() {
   if ( key == CODED ) {//esc
-    _keys[5] = true;
+    ESCAPE = true;
   } else {
     if ( key == 'w' ) {
-      _keys[0] = true;
+      W = true;
     } else if ( key == 'a' ) {
-      _keys[1] = true;
+      A = true;
     } else if ( key == 's' ) {
-      _keys[2] = true;
+      S = true;
     } else if ( key == 'd' ) {
-      _keys[3] = true;
+      D = true;
     } else {
       if ( !_spaceLock ) {//space has been released/not pressed
-        _keys[4] = true;
+        SPACE = true;
         _spaceLock = true;
       }
     }
@@ -259,18 +256,18 @@ void keyPressed() {
 
 void keyReleased() {
   if ( key == CODED ) {//esc
-    _keys[5] = false;
+    ESCAPE = false;
   } else {
     if ( key == 'w' ) {
-      _keys[0] = false;
+      W = false;
     } else if ( key == 'a' ) {
-      _keys[1] = false;
+      A = false;
     } else if ( key == 's' ) {
-      _keys[2] = false;
+      S = false;
     } else if ( key == 'd' ) {
-      _keys[3] = false;
+      D = false;
     } else {
-      _keys[4] = false;
+      SPACE = false;
       _spaceLock = false;//space ready to be pressed again
     }
   }

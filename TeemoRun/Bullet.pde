@@ -1,40 +1,24 @@
 public class Bullet extends Unit {
   
-  private boolean _friendly;
-  private float _targetX, _targetY, _bearing;
-  private float _speed;
-  private int _firingMode;
+  protected float _dx, _dy;
   
-  private Bullet( boolean friendly, float speed, float x, float y, color c ) {
-    super( x, y, 5, createShape( ELLIPSE, 0, 0, 10, 10 ), c );
-    _friendly = friendly;
-    _speed = speed;
-  }
-  
-  public Bullet( boolean friendly, float bearing, float speed, float x, float y, color c ) {
-    this( friendly, speed, x, y, c );
-    _bearing = bearing;
-    _firingMode = 0;
-  }
-  
-  public Bullet( boolean friendly, float targetX, float targetY, float speed, float x, float y, color c ) {
-    this( friendly, speed, x, y, c );
-    _targetX = targetX;
-    _targetY = targetY;
-    _firingMode = 1;
-  }
-  
-  public boolean friendly() {
-    return _friendly;
+  public Bullet( float tilt, float targetX, float targetY, float speed, float x, float y, color c ) {
+    super(x, y, 5);
+    _shape = createShape(ELLIPSE, 0, 0, 2*_r, 2*_r);
+    _shape.setFill(c);
+    float diffY = targetY - y, diffX = targetX - x, angle;
+    if (diffX >= 0)
+      angle = atan( diffY / diffX );
+    else
+      angle = atan( diffY / diffX ) + PI;
+    angle += tilt;
+    _dx = speed * cos(angle);
+    _dy = speed * sin(angle);
   }
   
   public void move() {
-    if ( _firingMode == 0 ) {
-      super.move( _bearing, _speed );
-    }
-    else {
-      super.move( _targetX, _targetY, _speed );
-    }
+    _x += _dx;
+    _y += _dy;
   }
   
 }
