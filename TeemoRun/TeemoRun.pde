@@ -20,7 +20,7 @@ float _dropSpawnRate, _abilitySpawnRate;
 void setup() {
 
   frameRate( 120 );//120fps :O
-  size( 1400, 800 );
+  size( 1024, 768 );
 
   //initialize Teemo
   _t = new Teemo();
@@ -124,7 +124,7 @@ void nextAbility(){
   color c = color(0);
   textSize(15);
   fill(255);
-  text("Next Ability:", 30, 770);
+  text("Next Ability:", 30, height - 30);
   if (_t.getNext() != -1){
     if (_t.getNext() == 0)
       c = color( 255, 0, 0 );

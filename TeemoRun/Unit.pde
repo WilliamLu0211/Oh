@@ -27,7 +27,7 @@ public class Unit {
   }
   
   public boolean outOfBounds() {//out of play area?
-    return _x < 0 + _r || _x > 1400 - _r || _y < 0 + _r  || _y > 800 - _r;
+    return _x < _r || _x > width - _r || _y < _r  || _y > height - _r;
   }
   
   public void setTime( int t ) {

@@ -34,9 +34,9 @@ public class Minion extends Unit {
   public void move() {
     _x += _dx;
     _y += _dy;
-    if (_x <= _r || _x >= 1400 - _r)
+    if ( outOfBounds() )
       _dx = -_dx;
-    if (_y <= _r || _y >= 800 - _r)
+    if ( outOfBounds() )
       _dy = -_dy;
   }
 

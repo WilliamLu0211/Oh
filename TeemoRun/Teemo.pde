@@ -6,7 +6,7 @@ public class Teemo extends Unit { //<>//
   private float _speed;
 
   public Teemo() {
-    super( 700, 400, 20);
+    super( width / 2, height / 2, 20);
     _shape = createShape(ELLIPSE, 0, 0, 2*_r, 2*_r);
     _shape.setFill(color( 0, 175, 0 ));
     _dmg = 100;
@@ -36,8 +36,7 @@ public class Teemo extends Unit { //<>//
     }
     _x += dx;
     _y += dy;
-    if (_x <= _r || _x >= 1400 - _r ||
-        _y <= _r || _y >= 800 - _r) {
+    if ( outOfBounds() ) {
       _x -= dx;
       _y -= dy;
     }
