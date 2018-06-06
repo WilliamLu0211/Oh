@@ -77,21 +77,21 @@ Brandon Chong :: Set up devlog and formatting. Helped with UML and flowchart.
 William Lu :: Wrote UML of all classes and methods. Helped with flowchart.
 Andrew Shao :: Edited UML and designed flowchart showing class hierarchy. 
 
-yyyy-mm-dd
+2018-06-02
 --------------------------------------------------------------
-Brandon Chong :: 
-William Lu :: 
-Andrew Shao :: 
+Brandon Chong :: Discussed algorithms for the interactions between Teemo, Bullet, and Minion with team.
+William Lu :: //same actions + copied LLNode and Queue from homework.
+Andrew Shao :: //same actions
 
-yyyy-mm-dd
+2018-06-03
 --------------------------------------------------------------
 Brandon Chong :: 
 William Lu :: 
-Andrew Shao :: 
+Andrew Shao :: Wrote all the code.
 
-yyyy-mm-dd
+2018-06-04
 --------------------------------------------------------------
 Brandon Chong :: 
-William Lu :: 
-Andrew Shao :: 
+William Lu :: Robustified code, made simpler
+Andrew Shao :: Partially reverted robustification
 ==============================================================
