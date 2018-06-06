@@ -24,7 +24,7 @@ public class Item extends Unit {
   
   public void move( Teemo t ) {
     float sqDistance = sq(_x - t._x) + sq(_y - t._y);
-    float speed = 20 / sqDistance;
+    float speed = 50 / sqDistance;
     float dx = speed * normalizeX( t._x - _x, sqDistance);
     float dy = speed * normalizeY( t._y - _y, sqDistance);
     _x += dx;

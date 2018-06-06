@@ -21,10 +21,10 @@ public class Teemo extends Unit { //<>//
   public void move( int x, int y ) {
     float dx = 0, dy = 0, msMultiplier = 1;
     if ( _abilityDurations[4] > 0 ) {
-      msMultiplier += 1;
+      msMultiplier = 1.5;
     }
     if ( _abilityDurations[0] > 0 ) {
-      msMultiplier *= 2;
+      msMultiplier = 2;
     }
     if (x == 0)
       dy = y * _speed * msMultiplier;
@@ -117,7 +117,7 @@ public class Teemo extends Unit { //<>//
       _abilityDurations[2] += 20 * (int)frameRate;
     }
     if ( type == 3 ) {//damage upgrade
-      _dmg += 20;
+      _dmg += 50;
     }
     if ( type == 4 ) {//ghost
       _abilityDurations[4] += 15 * (int)frameRate;
@@ -150,5 +150,10 @@ public class Teemo extends Unit { //<>//
     } else {
       super.spawn();
     }
+  }
+  
+  public int getNext(){
+    if (_abilities.isEmpty()) return -1;
+    return _abilities.peekFront().getType();
   }
 }

@@ -1,15 +1,15 @@
-class Queue<T> {
+public class Queue<T> {
     
-    LLNode<T> _head, _tail;
-    int _size;
+    private LLNode<T> _head, _tail;
+    private int _size;
     
-    Queue() {
+    public Queue() {
         _size = 0;
     }
     
     //means of removing an element from collection:
     //Dequeues and returns the first element of the queue.
-    T dequeue() {
+    public T dequeue() {
         if ( isEmpty() ) return null;
         T q = _head.getValue();
         _head = _head.getNext();
@@ -20,7 +20,7 @@ class Queue<T> {
 
     //means of adding an element to collection:
     //Enqueue an element onto the back of this queue.
-    void enqueue( T x ) {
+    public void enqueue( T x ) {
         if ( isEmpty() ) {
             _head = new LLNode(x, null);
             _tail = _head;
@@ -32,12 +32,12 @@ class Queue<T> {
     }
 
     //Returns true if this queue is empty, otherwise returns false.
-    boolean isEmpty() {
+    public boolean isEmpty() {
         return _size == 0;
     }
 
     //Returns the first element of the queue without dequeuing it.
-    T peekFront() {
+    public T peekFront() {
         return _head.getValue();
     }
 

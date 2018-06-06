@@ -13,8 +13,8 @@ ArrayList<Item> _items;
 ArrayList<ArrayList> _units;
 
 //variables related to game events
-int _minionSpawnTime, _minionSpawnTimer, _dropSpawnTime, _dropSpawnTimer, _minionHealth;
-float _minionSpawnRate, _dropSpawnRate, _abilitySpawnRate;
+int _minionSpawnTime, _minionSpawnTimer, _minionHealth;
+float _dropSpawnRate, _abilitySpawnRate;
 
 
 void setup() {
@@ -35,10 +35,8 @@ void setup() {
   _units.add( _items );
 
   //initialize values
-  _minionSpawnTime = _minionSpawnTimer = 120;//frames between checking to spawn minions or not; frames before next check
-  _dropSpawnTime = _dropSpawnTimer = 360;//frames between checking to spawn drop or not; frames before next check
+  _minionSpawnTime = _minionSpawnTimer = 200;//frames between checking to spawn minions or not; frames before next check
   _minionHealth = 20;//minion health
-  _minionSpawnRate = 0.5;//odds of spawningsd a minion during a check
   _dropSpawnRate = 0.5;//odds of spawning a drop during a check
   _abilitySpawnRate = 0.5;//odds of spawning ability instead of coin
 
@@ -68,9 +66,9 @@ void addNewAbility( float x, float y ) {//spawns in new ability drop at (x,y)
     tmp = color( 255, 125, 0 );//orange: twin
   } else if ( n < 34 ) {//34-24% (10) chance
     tmp = color( 255, 255, 0 );//yellow: magnet
-  } else if ( n < 42 ) {//42-34% (8) chance
+  } else if ( n < 48 ) {//48-34% (14) chance
     tmp = color( 0, 255, 0 );//green: damage upgrade
-  } else if ( n < 62 ) {//62-42% (20) chance
+  } else if ( n < 62 ) {//62-48% (14) chance
     tmp = color( 0, 255, 255 );//light blue: ghost
   } else if ( n < 77 ) {//77-62% (15) chance
     tmp = color( 0, 0, 255 );//dark blue: trident
@@ -88,6 +86,7 @@ void addNewCoin( float x, float y ) {//spawns in new coin drop
 
 void gameOver() {//oh no
   clear();
+  fill(255);
   textSize( 64 );//font size
   text( "GAME OVER", 700, 400, 900, 200 );
   textSize( 16 );//font size
@@ -95,10 +94,64 @@ void gameOver() {//oh no
   noLoop();//stops calling draw
 }
 
+void menu() {
+  textSize(15);
+  fill(255);
+  text("Ability Menu:\n    boost\n    twin\n    magnet\n    damage updrade\n    ghost\n    trident\n    rage\n    attack speed upgrade", 30, 30);
+  fill( color( 255, 0, 0 ) );
+  drawTriangle(25, 38);
+  fill( color( 255, 125, 0 ) );
+  drawTriangle(25, 63);
+  fill( color( 255, 255, 0 ) );
+  drawTriangle(25, 88);
+  fill( color( 0, 255, 0 ) );
+  drawTriangle(25, 115);
+  fill( color( 0, 255, 255 )  );
+  drawTriangle(25, 138);
+  fill( color( 0, 0, 255 ) );
+  drawTriangle(25, 162);
+  fill( color( 175, 0, 255 ) );
+  drawTriangle(25, 185);
+  fill( color( 255, 0, 200 ) );
+  drawTriangle(25, 210);
+}
+
+void drawTriangle(float x, float y){
+  triangle(x, y, x + 24 , y, x + 12, y + 12*sqrt(3));
+}
+
+void nextAbility(){
+  color c = color(0);
+  textSize(15);
+  fill(255);
+  text("Next Ability:", 30, 770);
+  if (_t.getNext() != -1){
+    if (_t.getNext() == 0)
+      c = color( 255, 0, 0 );
+    if (_t.getNext() == 1)
+      c = color( 255, 125, 0 );
+    if (_t.getNext() == 2)
+      c = color( 255, 255, 0 );
+    if (_t.getNext() == 3)
+      c = color( 0, 255, 0 );
+    if (_t.getNext() == 4)
+      c = color( 0, 255, 255 );
+    if (_t.getNext() == 5)
+      c = color( 0, 0, 255 );
+    if (_t.getNext() == 6)
+      c = color( 175, 0, 255 );
+    if (_t.getNext() == 7)
+      c = color( 255, 0, 200 );
+    fill(c);
+    drawTriangle(120, 755);
+  }
+}
 
 void draw() {
 
   clear();//IMPORTANT
+  menu();
+  nextAbility();
   if ( keyPressed ) {
     if ( SPACE ) {//space pressed
       _t.use();
@@ -141,6 +194,7 @@ void draw() {
     if ( _minions.get( i ).touches( _t ) ) {//check if minion is touching Teemo
       if ( _t.isBoosted() ) {//check if Teemo invulnerable
         _minions.remove( i );//rekt
+        i --;
       } else {
         gameOver();//not rekt
       }
@@ -149,26 +203,25 @@ void draw() {
 
   TBullet tmpTB;//temporary storage for Teemo bullets
   MBullet tmpMB;//temporary storage for minion bullets
-  for ( int i = _bullets.size() - 1; i >= 0; i-- ) {//check all bullets
+  for ( int i = 0; i < _bullets.size(); i++ ) {//check all bullets
     if ( _bullets.get( i ) instanceof TBullet ) {//bullet is a Teemo bullet
       tmpTB = (TBullet)_bullets.get( i );
-      for ( int j = _minions.size() - 1; j >= 0; j-- ) {//check all minions
+      for ( int j = 0; j < _minions.size(); j++ ) {//check all minions
         if ( tmpTB.touches( _minions.get( j ) ) ) {//check if bullet hit minion
           _minions.get( j ).hit( tmpTB );//deduct health
           if ( !_minions.get( j ).isAlive() ) {//if hit was fatal
-            if ( _dropSpawnTimer == 0 ) {//ready to check to spawn a drop or not
-              if ( random( 1 ) < _dropSpawnRate ) {//check to spawn a drop
-                if ( random( 1 ) < _abilitySpawnRate ) {//ability drop
-                  addNewAbility( _minions.get( j ).getX(), _minions.get( j ).getY() - 6 );
-                } else {//coin drop
-                  addNewCoin( _minions.get( j ).getX() - 6, _minions.get( j ).getY() - 6 );
-                }
+            if ( Math.random() < _dropSpawnRate ) {//check to spawn a drop
+              if ( Math.random() < _abilitySpawnRate ) {//ability drop
+                addNewAbility( _minions.get( j ).getX(), _minions.get( j ).getY() - 6 );
+              } else {//coin drop
+                addNewCoin( _minions.get( j ).getX() - 6, _minions.get( j ).getY() - 6 );
               }
-              _dropSpawnTimer = _dropSpawnTime;//reset timer
             }
             _minions.remove( j );//despawn minion if killed
+            j --;
           }
           _bullets.remove( i );//despawn bullet if hit
+          i --;
           break;//IMPORTANT! move to next bullet
         }
       }
@@ -180,33 +233,34 @@ void draw() {
       }
     }
   }
-  for ( int i = _bullets.size() - 1; i >= 0; i-- ) {//check all bullets
+  for ( int i = 0; i < _bullets.size(); i++ ) {//check all bullets
     if ( _bullets.get( i ).outOfBounds() ) {//check if bullet out of play area
       _bullets.remove( i );//despawn bullet
+      i --;
     } else {//otherwise keep moving bullet
       _bullets.get( i ).move();
     }
   }
 
   //check all items
-  for ( int i = _items.size() - 1; i >= 0; i-- ) {
+  for ( int i = 0; i < _items.size(); i++ ) {
     if ( _items.get( i ).despawnReady() ) {//check if time to despawn item
       _items.remove( i );//despawn item
+      i --;
     }
   }
 
   if ( _minionSpawnTimer == 0) {//check if time to check to spawn minion or not
-    if ( random( 1 ) < _minionSpawnRate ) {//check whether to spawn minion
-      addNewMinion();//spawn new minion
-    }
+    addNewMinion();//spawn new minion
     _minionSpawnTimer = _minionSpawnTime;//reset minion spawn timer
   }
 
   //check all items
-  for ( int i = _items.size() - 1; i >= 0; i-- ) {
+  for ( int i = 0; i < _items.size(); i++ ) {
     if ( _t.touches( _items.get(i) ) ){//if Teemo is next to or on top of item
       _t.pickUp( _items.get( i ) );//Teemo picks up item
       _items.remove( i );//despawns item
+      i --;
     } else if ( _t.isMagnetized() ) {//Teemo has magnet ability active
       _items.get( i ).move( _t );//items move toward Teemo
     }
@@ -228,9 +282,6 @@ void draw() {
     _minionSpawnTimer--;
   }
 
-  if ( _dropSpawnTimer > 0 ) {//decrease drop spawning timer for passage of time
-    _dropSpawnTimer--;
-  }
 }
 
 void keyPressed() {
