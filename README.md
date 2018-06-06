@@ -6,7 +6,8 @@
   The project works using the computer language Processing. It has multiple classes for all necessary objects such as Teemo itself, minions, bullets, abilites, coins and all kinds of stuff. 
   
 ## Launching Instructions
-  Run TeemoRun.pde in Processing. Make sure you full screen the interface.
+  Clone this repository into wherever you desire so long as you can access it after. 
+  Open TeemoRun.pde in Processing. Make sure you full screen the interface. Then press Ctrl + R.
   To play press the WASD keys to make Teemo move in the directions the keys point towards. Drag your cursor over the screen to have Teemo automatically shoot in your cursor direction. Dodge all the enemy minion bullets and shoot enemy minions for a chance for them to drop and ability or coiins. Coins and alive time and minion kills combined equate to points earned. Try to beat our high scores.
   
 For more information or suggestions, email us at bchong@stuy.edu
