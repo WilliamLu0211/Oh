@@ -13,7 +13,7 @@ public class Teemo extends Unit { //<>//
     _attackSpeed = 20;
     super.setTime( 1 );
     _score = 0;
-    _speed = 1.5;
+    _speed = 2;
     _abilities = new Queue();
     _abilityDurations = new int[8];
   }

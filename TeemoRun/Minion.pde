@@ -34,24 +34,6 @@ public class Minion extends Unit {
   public void move() {
     _x += _dx;
     _y += _dy;
-    //if (_x < _r || _x > 1400 - _r || _y < _r || _y > 800 - _r) {
-    //  _x -= dx;
-    //  _y -= dy;
-    //  _angle += PI / 2;
-    //  dx = cos( _angle ) * _speed;
-    //  dy = sin( _angle ) * _speed;
-    //  _x += dx;
-    //  _y += dy;    
-    //  if (_x < _r || _x > 1400 - _r || _y < _r || _y > 800 - _r) {
-    //    _x -= dx;
-    //    _y -= dy;
-    //    _angle -= PI;
-    //    dx = cos( _angle ) * _speed;
-    //    dy = sin( _angle ) * _speed;
-    //    _x += dx;
-    //    _y += dy;
-    //  }
-    //}
     if (_x <= _r || _x >= 1400 - _r)
       _dx = -_dx;
     if (_y <= _r || _y >= 800 - _r)
