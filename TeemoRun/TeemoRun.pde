@@ -48,11 +48,11 @@ void setup() {
 //helper methods
 void addNewMinion() {//spawns in new minion at random location
   float mX, mY;
-  mX = random( 1300 ) + 50;
-  mY = random( 700 ) + 50;
+  mX = 924 * (float)Math.random() + 50;
+  mY = 668 * (float)Math.random() + 50;
   while ( sq( mX - _t.getX() ) + sq( mY - _t.getY() ) < 40000 ) {//forces location to be certain distance away from Teemo
-    mX = random( 1300 ) + 50;
-    mY = random( 700 ) + 50;
+    mX = 924 * (float)Math.random() + 50;
+    mY = 668 * (float)Math.random() + 50;
   }
   _minions.add( new Minion( _minionHealth, mX, mY ) );
   _minionHealth += 10;
