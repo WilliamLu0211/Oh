@@ -1,5 +1,5 @@
 //variables to aid with controls
-boolean W, A, S, D, SPACE, ESCAPE;  //true = key currently pressed down  0:W 1:A 2:S 3:D 4:SPACE 5:ESCAPE
+boolean W, A, S, D, SPACE;  //true = key currently pressed down  0:W 1:A 2:S 3:D 4:SPACE 5:ESCAPE
 boolean _mouse; //true = mouse currently pressed down
 boolean _spaceLock; //makes sure holding down space isn't read as space pressed repeatedly
 
@@ -13,6 +13,7 @@ ArrayList<Item> _items;
 ArrayList<ArrayList> _units;
 
 //variables related to game events
+boolean _start;
 int _minionSpawnTime, _minionSpawnTimer, _minionHealth;
 float _dropSpawnRate, _abilitySpawnRate;
 
@@ -88,9 +89,9 @@ void gameOver() {//oh no
   clear();
   fill(255);
   textSize( 64 );//font size
-  text( "GAME OVER", 700, 400, 900, 200 );
+  text( "GAME OVER", 300, 300 );
   textSize( 16 );//font size
-  text( "Score: " + _t.score( frameCount / 5 ), 700, 700, 900, 200);
+  text( "Score: " + _t.score( frameCount / 5 ), 300, 500 );
   noLoop();//stops calling draw
 }
 
@@ -132,9 +133,15 @@ void nextAbility() {
   text("Next Ability: " + tmp, 30, height - 30);
 }
 
-void draw() {
+void startingMenu() {
+  fill(255);
+  textSize( 64 );//font size
+  text( "TEEMO RUN", 300, 300 );
+  textSize( 16 );//font size
+  text( "By Brandon Chong, William Lu, and Andrew Shao\n\nPress SPACE to start", 300, 500 );
+}
 
-  clear();//IMPORTANT
+void runGame() {
   nextAbility();
   if ( keyPressed ) {
     if ( SPACE ) {//space pressed
@@ -159,7 +166,7 @@ void draw() {
       }
     } else if ( A ) {//only A
       _t.move( -1, 0 );//left
-    } else {//only D
+    } else if ( D ) {//only D
       _t.move( 1, 0 );//right
     }
   }
@@ -269,42 +276,48 @@ void draw() {
   }
 }
 
-void keyPressed() {
-  if ( key == CODED ) {//esc
-    ESCAPE = true;
-  } else {
-    if ( key == 'w' ) {
-      W = true;
-    } else if ( key == 'a' ) {
-      A = true;
-    } else if ( key == 's' ) {
-      S = true;
-    } else if ( key == 'd' ) {
-      D = true;
+void draw() {
+  clear();
+  if ( !_start ) {
+    if ( SPACE ) {
+      _start = true;
+      delay( 500 );
     } else {
-      if ( !_spaceLock ) {//space has been released/not pressed
-        SPACE = true;
-        _spaceLock = true;
-      }
+      startingMenu();
+    }
+  } else {
+    runGame();
+  }
+}
+
+void keyPressed() {
+  if ( key == 'w' ) {
+    W = true;
+  } else if ( key == 'a' ) {
+    A = true;
+  } else if ( key == 's' ) {
+    S = true;
+  } else if ( key == 'd' ) {
+    D = true;
+  } else {
+    if ( !_spaceLock ) {//space has been released/not pressed
+      SPACE = true;
+      _spaceLock = true;
     }
   }
 }
 
 void keyReleased() {
-  if ( key == CODED ) {//esc
-    ESCAPE = false;
+  if ( key == 'w' ) {
+    W = false;
+  } else if ( key == 'a' ) {
+    A = false;
+  } else if ( key == 's' ) {
+    S = false;
+  } else if ( key == 'd' ) {
+    D = false;
   } else {
-    if ( key == 'w' ) {
-      W = false;
-    } else if ( key == 'a' ) {
-      A = false;
-    } else if ( key == 's' ) {
-      S = false;
-    } else if ( key == 'd' ) {
-      D = false;
-    } else {
-      SPACE = false;
-      _spaceLock = false;//space ready to be pressed again
-    }
+    SPACE = false;
+    _spaceLock = false;//space ready to be pressed again
   }
 }
