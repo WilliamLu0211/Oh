@@ -94,4 +94,16 @@ Andrew Shao :: Wrote all the code.
 Brandon Chong :: 
 William Lu :: Robustified code, made simpler
 Andrew Shao :: Partially reverted robustification
+
+2018-06-06
+--------------------------------------------------------------
+Brandon Chong :: 
+William Lu :: Added new feature: next ability indicator
+Andrew Shao :: Added game start menu
+
+2018-06-07
+--------------------------------------------------------------
+Brandon Chong :: 
+William Lu :: Nerfed score based on time, buffed score based on coins
+Andrew Shao ::
 ==============================================================

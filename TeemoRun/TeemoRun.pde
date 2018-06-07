@@ -55,7 +55,7 @@ void addNewMinion() {//spawns in new minion at random location
     mY = 668 * (float)Math.random() + 50;
   }
   _minions.add( new Minion( _minionHealth, mX, mY ) );
-  _minionHealth += 10;
+  _minionHealth += 5;
 }
 
 void addNewAbility( float x, float y ) {//spawns in new ability drop at (x,y)
@@ -91,7 +91,7 @@ void gameOver() {//oh no
   textSize( 64 );//font size
   text( "GAME OVER", 300, 300 );
   textSize( 16 );//font size
-  text( "Score: " + _t.score( frameCount / 5 ), 300, 500 );
+  text( "Score: " + _t.score( frameCount / 10 ), 300, 500 );
   noLoop();//stops calling draw
 }
 
@@ -133,6 +133,12 @@ void nextAbility() {
   text("Next Ability: " + tmp, 30, height - 30);
 }
 
+void currentScore() {
+  textSize(15);
+  fill(255);
+  text("Current Score: " + _t.score(frameCount / 10), 30, height - 60);
+}
+
 void startingMenu() {
   fill(255);
   textSize( 64 );//font size
@@ -143,6 +149,7 @@ void startingMenu() {
 
 void runGame() {
   nextAbility();
+  currentScore();
   if ( keyPressed ) {
     if ( SPACE ) {//space pressed
       SPACE = false;

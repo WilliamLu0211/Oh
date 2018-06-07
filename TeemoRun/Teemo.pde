@@ -63,8 +63,7 @@ public class Teemo extends Unit { //<>//
   }
 
   public int score( int time ) {
-    _score += time;
-    return _score;
+    return _score + time;
   }
 
   public TBullet[] shoot() {
