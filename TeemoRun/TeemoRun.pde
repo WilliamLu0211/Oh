@@ -94,68 +94,54 @@ void gameOver() {//oh no
   noLoop();//stops calling draw
 }
 
-void menu() {
-  textSize(15);
-  fill(255);
-  text("Ability Menu:\n    boost\n    twin\n    magnet\n    damage updrade\n    ghost\n    trident\n    rage\n    attack speed upgrade", 30, 30);
-  fill( color( 255, 0, 0 ) );
-  drawTriangle(25, 38);
-  fill( color( 255, 125, 0 ) );
-  drawTriangle(25, 63);
-  fill( color( 255, 255, 0 ) );
-  drawTriangle(25, 88);
-  fill( color( 0, 255, 0 ) );
-  drawTriangle(25, 115);
-  fill( color( 0, 255, 255 )  );
-  drawTriangle(25, 138);
-  fill( color( 0, 0, 255 ) );
-  drawTriangle(25, 162);
-  fill( color( 175, 0, 255 ) );
-  drawTriangle(25, 185);
-  fill( color( 255, 0, 200 ) );
-  drawTriangle(25, 210);
+//void menu() {
+//  textSize(15);
+//  fill(255);
+//  text("Ability Menu:\n    boost\n    twin\n    magnet\n    damage updrade\n    ghost\n    trident\n    rage\n    attack speed upgrade", 30, 30);
+//  fill( color( 255, 0, 0 ) );
+//  drawTriangle(25, 38);
+//  fill( color( 255, 125, 0 ) );
+//  drawTriangle(25, 63);
+//  fill( color( 255, 255, 0 ) );
+//  drawTriangle(25, 88);
+//  fill( color( 0, 255, 0 ) );
+//  drawTriangle(25, 115);
+//  fill( color( 0, 255, 255 )  );
+//  drawTriangle(25, 138);
+//  fill( color( 0, 0, 255 ) );
+//  drawTriangle(25, 162);
+//  fill( color( 175, 0, 255 ) );
+//  drawTriangle(25, 185);
+//  fill( color( 255, 0, 200 ) );
+//  drawTriangle(25, 210);
+//}
+
+void drawTriangle(float x, float y) {
+  triangle(x, y, x + 24, y, x + 12, y + 12*sqrt(3));
 }
 
-void drawTriangle(float x, float y){
-  triangle(x, y, x + 24 , y, x + 12, y + 12*sqrt(3));
-}
-
-void nextAbility(){
-  color c = color(0);
+void nextAbility() {
   textSize(15);
   fill(255);
-  text("Next Ability:", 30, height - 30);
-  if (_t.getNext() != -1){
-    if (_t.getNext() == 0)
-      c = color( 255, 0, 0 );
-    if (_t.getNext() == 1)
-      c = color( 255, 125, 0 );
-    if (_t.getNext() == 2)
-      c = color( 255, 255, 0 );
-    if (_t.getNext() == 3)
-      c = color( 0, 255, 0 );
-    if (_t.getNext() == 4)
-      c = color( 0, 255, 255 );
-    if (_t.getNext() == 5)
-      c = color( 0, 0, 255 );
-    if (_t.getNext() == 6)
-      c = color( 175, 0, 255 );
-    if (_t.getNext() == 7)
-      c = color( 255, 0, 200 );
-    fill(c);
-    drawTriangle(120, 755);
+  String tmp;
+  if ( _t.getNext() == null ) {
+    tmp = "None";
+  } else {
+    tmp = _t.getNext().name();
   }
+  text("Next Ability: " + tmp, 30, height - 30);
 }
 
 void draw() {
 
   clear();//IMPORTANT
-  menu();
   nextAbility();
   if ( keyPressed ) {
     if ( SPACE ) {//space pressed
+      SPACE = false;
       _t.use();
-    } else if ( W ) {
+    } 
+    if ( W ) {
       if ( A ) {//W & A
         _t.move( -1, -1 );//up & left
       } else if ( D ) {//W & D
@@ -257,7 +243,7 @@ void draw() {
 
   //check all items
   for ( int i = 0; i < _items.size(); i++ ) {
-    if ( _t.touches( _items.get(i) ) ){//if Teemo is next to or on top of item
+    if ( _t.touches( _items.get(i) ) ) {//if Teemo is next to or on top of item
       _t.pickUp( _items.get( i ) );//Teemo picks up item
       _items.remove( i );//despawns item
       i --;
@@ -281,7 +267,6 @@ void draw() {
     }
     _minionSpawnTimer--;
   }
-
 }
 
 void keyPressed() {

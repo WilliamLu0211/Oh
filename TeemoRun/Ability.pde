@@ -39,11 +39,11 @@ public class Ability extends Item {
     }
   }
   
-  public int getType() {
+  public int type() {
     return _type;
   }
   
-  public String getName() {
+  public String name() {
     return _name;
   }
   

@@ -105,7 +105,7 @@ public class Teemo extends Unit { //<>//
       return;
     }
     Ability a = _abilities.dequeue();
-    int type = a.getType();    
+    int type = a.type();    
     if ( type == 0 ) {//boost
       _abilityDurations[0] += 5 * (int)frameRate;
     }
@@ -151,8 +151,8 @@ public class Teemo extends Unit { //<>//
     }
   }
   
-  public int getNext(){
-    if (_abilities.isEmpty()) return -1;
-    return _abilities.peekFront().getType();
+  public Ability getNext(){
+    if (_abilities.isEmpty()) return null;
+    return _abilities.peekFront();
   }
 }
