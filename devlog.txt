@@ -6,8 +6,6 @@ pd 2
 ---------------------
 Teemo Run
 
-
-
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 USAGE:
 devlog--
@@ -21,34 +19,41 @@ Flesh out each category whenever necessary, appropriate.
  but best done as you go along.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-
 /////////// Zone of Reflection \\\\\\\\\\\
 ------------------------------------------
 OBSTACLES OVERCOME
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<Wow, we so BOSS bc...>
+We struggled to implement the ability "trident". The other 2 bullets shot by teemo are pi/6 radian off the main bullet.
+We decided to add a variable "tilt" in the bullet constructor which first calculates the angle with arctan(dy/dx).
+Then tilt is added to the angle and dy and dx are calculated by sin and cos, respectively.
+However we found out that the bullets are only directed on 1 side of the screen because angles pi radians apart have
+the same tan value. When dy and dx are calculated back, their value may be negatives of what they should be.
+We solved this problem by checking the sign of dx. If it's negative, pi is added to to arctan(dy/dx);
 
 UNRESOLVED ISSUES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<
-blah blah pesky bug...
-maybe some of these will move into the Obs.Ovrcm section...
->
+We initialy planned to press SPACE to use an ability since it's the most convenient when 3 other fingers stay on WASD.
+However processing does not have a built-in character for SPACE so pressing everything other than WASD activartes
+an ability (if queue is not empty)
 
 COOL STUFF LEARNED
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<wow! oo! etc!...>
+Processing has its own keyCode that is much simpler than those in java.awt.event.KeyEvent.
+We learned how to construct basic geometric shapes other than ellipse in processing.
 
 MID-DEVELOPMENT DESIGN CHANGES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-We changed ___ to ___ bc...
-<etc>
-<etc>
+We initially planned to use a static instance variable "maxHealth" in the Minion class and add a constant amount to it
+when each minion is constructed. However we got an error message "The field maxHealth cannot be declared static in a
+non-static inner type, unless initialized with a constant expression". Then we found out that this error only occurs in
+processing so we moved this variable to the driver and achieved the same functionality.
 
 LESSONS LEARNED
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<tales of wisdom gained...>
+Even one of the most simple arcade game requires a lot of work. The amount of code was twice that we expected.
+The processing API is really helpful.
+Teamwork is dreamwork.
+
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -85,7 +90,7 @@ Andrew Shao :: //same actions
 
 2018-06-03
 --------------------------------------------------------------
-Brandon Chong :: Helped Andrew.
+Brandon Chong ::
 William Lu :: Gave suggestions
 Andrew Shao :: Wrote code that achieved basic functionality
 
@@ -103,7 +108,7 @@ Andrew Shao :: Added game start menu
 
 2018-06-07
 --------------------------------------------------------------
-Brandon Chong :: Updated Readme
+Brandon Chong :: 
 William Lu :: Nerfed score based on time, buffed score based on coins, added current score indicator
 Andrew Shao ::
 ==============================================================
