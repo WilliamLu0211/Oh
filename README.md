@@ -15,13 +15,13 @@ Teemo has found himself trapped in a room filled with dangerous monsters that al
 5. Mad cuz bad? Press ESC to rage quit!
 
 ##### List of Abilities
-- Boost: Significantly increases Teemo’s movement speed for 5 seconds. He becomes invincible and kills every minion he touches.
-- Twin: Doubles Teemo’s attack damage for 20 seconds
-- Magnet: Attracts nearby abilities, coins, and diamonds for 20 seconds
-- Damage Upgrade: Permanently increases Teemo’s attack damage
-- Ghost: Increases movement speed for 15 seconds
-- Trident: Teemo shoots at additionally 2 bullets each time for 20 seconds
-- Rage: Doubles Teemo’s attack speed for 20 seconds
-- Attack Speed Upgrade: Permanently increases Teemo’s attack speed
+- **Boost**: Significantly increases Teemo’s movement speed for 5 seconds. He becomes invincible and kills every minion he touches.
+- **Twin**: Doubles Teemo’s attack damage for 20 seconds
+- **Magnet**: Attracts nearby abilities, coins, and diamonds for 20 seconds
+- **Damage Upgrade**: Permanently increases Teemo’s attack damage
+- **Ghost**: Increases movement speed for 15 seconds
+- **Trident**: Teemo shoots at additionally 2 bullets each time for 20 seconds
+- **Rage**: Doubles Teemo’s attack speed for 20 seconds
+- **Attack Speed Upgrade**: Permanently increases Teemo’s attack speed
 
 For more information or suggestions, email us at bchong@stuy.edu
