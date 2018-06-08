@@ -86,8 +86,8 @@ Andrew Shao :: //same actions
 2018-06-03
 --------------------------------------------------------------
 Brandon Chong ::
-William Lu :: 
-Andrew Shao :: Wrote all the code.
+William Lu :: Gave suggestions
+Andrew Shao :: Wrote code that achieved basic functionality
 
 2018-06-04
 --------------------------------------------------------------
@@ -98,7 +98,7 @@ Andrew Shao :: Partially reverted robustification
 2018-06-06
 --------------------------------------------------------------
 Brandon Chong :: 
-William Lu :: Added new feature: next ability indicator
+William Lu :: Added new feature: next ability indicator, increased minion health each spawn and Teemo's basic attack speed
 Andrew Shao :: Added game start menu
 
 2018-06-07
