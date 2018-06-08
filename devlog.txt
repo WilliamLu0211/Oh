@@ -85,13 +85,13 @@ Andrew Shao :: //same actions
 
 2018-06-03
 --------------------------------------------------------------
-Brandon Chong :: 
+Brandon Chong ::
 William Lu :: 
 Andrew Shao :: Wrote all the code.
 
 2018-06-04
 --------------------------------------------------------------
-Brandon Chong :: 
+Brandon Chong ::  Wrote the Readme
 William Lu :: Robustified code, made simpler
 Andrew Shao :: Partially reverted robustification
 
