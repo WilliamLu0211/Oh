@@ -12,6 +12,7 @@ Teemo has found himself trapped in a room filled with dangerous monsters that al
 2. Go to Oh/TeemoRun and click on TeemoRun.pde
 3. Press the play icon on the top left corner
 4. Start controlling Teemo, try to get the highest score possible.
+5. Mad cuz bad? Press ESC to rage quit!
 
 ##### List of Abilities
 - Boost 
