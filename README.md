@@ -14,7 +14,7 @@ Teemo has found himself trapped in a room filled with dangerous monsters that al
 4. Start controlling Teemo, try to get the highest score possible.
 5. Mad cuz bad? Press ESC to rage quit!
 
-##### List of Abilities
+### List of Abilities
 - **Boost**: Significantly increases Teemo’s movement speed for 5 seconds. He becomes invincible and kills every minion he touches.
 - **Twin**: Doubles Teemo’s attack damage for 20 seconds
 - **Magnet**: Attracts nearby abilities, coins, and diamonds for 20 seconds
