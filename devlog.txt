@@ -104,6 +104,6 @@ Andrew Shao :: Added game start menu
 2018-06-07
 --------------------------------------------------------------
 Brandon Chong :: 
-William Lu :: Nerfed score based on time, buffed score based on coins
+William Lu :: Nerfed score based on time, buffed score based on coins, added current score indicator
 Andrew Shao ::
 ==============================================================
