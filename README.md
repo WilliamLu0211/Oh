@@ -1,5 +1,5 @@
 # Oh
-*Final Project of Brandon Chong, Andrew Shao and William Lu!*
+*Final Project of Brandon Chong, Andrew Shao and William Lu*
 
 ## APCS2 Final Project - Teemo
 Proposal: [Our proposal](./docs/proposal.pdf)
