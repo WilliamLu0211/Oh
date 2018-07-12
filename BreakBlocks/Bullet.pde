@@ -22,9 +22,18 @@ public class Bullet extends Unit {
       if (touchesS(b)){
         _dx = -_dx;
         b.decrementHealth();
-      }
-      if (touchesTB(b)){
+      } else if (touchesTB(b)){
         _dy = -_dy;
+        b.decrementHealth();
+      } else if (touchesV1(b)){
+        float temp = _dx;
+        _dx = -_dy;
+        _dy = -temp;
+        b.decrementHealth();
+      } else if (touchesV2(b)){
+        float temp = _dx;
+        _dx = _dy;
+        _dy = temp;
         b.decrementHealth();
       }
     }
@@ -44,6 +53,24 @@ public class Bullet extends Unit {
     float left = b.getX() - b.getHalfL();
     float right = b.getX() + b.getHalfL();
     return _x >= left && _x <= right && _y >= top && _y <= bot;
+  }
+  
+  private boolean touchesV1(Block b){
+    float brX = b.getX() + b.getHalfL();
+    float brY = b.getY() + b.getHalfW();
+    float tlX = b.getX() - b.getHalfL();
+    float tlY = b.getY() - b.getHalfW();
+    return sq(_x - brX) + sq(_y - brY) < sq(_r) ||
+           sq(_x - tlX) + sq(_y - tlY) < sq(_r);
+  }
+  
+  private boolean touchesV2(Block b){
+    float blX = b.getX() - b.getHalfL();
+    float blY = b.getY() + b.getHalfW();
+    float trX = b.getX() + b.getHalfL();
+    float trY = b.getY() - b.getHalfW();
+    return sq(_x - blX) + sq(_y - blY) < sq(_r) ||
+           sq(_x - trX) + sq(_y - trY) < sq(_r);
   }
   
   public void spawn(){

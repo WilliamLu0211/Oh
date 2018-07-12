@@ -1,8 +1,8 @@
 ArrayList<Block> _blocks;
 Shooter _s;
 //variables related to game events
-boolean _start, _readyToClick, _readyToAdd;
-int _score;
+boolean _start, _over, _readyToClick, _readyToAdd;
+int _score, _pScore;
 float _blockSpawnChance, _blockSpawnCount, _doubleHealthChance;
 float _mouseX, _mouseY, _currX;
 
@@ -20,6 +20,7 @@ void setup() {
   _doubleHealthChance = 0.7;
   
   _start = false;
+  _over = false;
   _readyToClick = true;
   _readyToAdd = true;
 }
@@ -36,11 +37,9 @@ void gameOver() {//oh no
   textSize( 64 );//font size
   text( "GAME OVER", 300, 300 );
   textSize( 16 );//font size
-  text( "Score: " + _score, 300, 400 );
-  noLoop();//stops calling draw
-  //_start = false;
-  //textSize( 16 );//font size
-  //text( "Left Click to Start" , 300, 500 );
+  text( "Score: " + _pScore, 300, 400 );
+  textSize( 16 );//font size
+  text( "Left Click to Start" , 300, 500 );
 }
 
 void startingMenu() {
@@ -100,22 +99,33 @@ void runGame(){
   
   for (Block b : _blocks)
     if (b.getY() == 575)
-      gameOver();
+      _over = true;
   
 }
 
 void draw() {
   clear();
-  if ( !_start ) {
+  if (!_start) {
     startingMenu();
+  } else if (_over){
+    if (_score != 0){
+      _pScore = _score;
+      _score = 0;
+    }
+    gameOver();
   } else {
     runGame();
   }
 }
 
 void mouseClicked(){
-  if ( !_start )
+  if (!_start)
     _start = true;
+  if (_over){
+    _over = false;
+    while (!_blocks.isEmpty())
+      _blocks.remove(0);
+  }
   if (_readyToClick){
     _readyToClick = false;
     updateChance();
