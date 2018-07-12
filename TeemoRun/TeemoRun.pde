@@ -21,7 +21,7 @@ float _dropSpawnRate, _abilitySpawnRate;
 void setup() {
 
   frameRate( 120 );//120fps :O
-  size( 1024, 768 );
+  size( 1024, 600 );
 
   //initialize Teemo
   _t = new Teemo();
@@ -48,11 +48,11 @@ void setup() {
 //helper methods
 void addNewMinion() {//spawns in new minion at random location
   float mX, mY;
-  mX = 924 * (float)Math.random() + 50;
-  mY = 668 * (float)Math.random() + 50;
+  mX = (width - 100) * (float)Math.random() + 50;
+  mY = (height - 100) * (float)Math.random() + 50;
   while ( sq( mX - _t.getX() ) + sq( mY - _t.getY() ) < 40000 ) {//forces location to be certain distance away from Teemo
-    mX = 924 * (float)Math.random() + 50;
-    mY = 668 * (float)Math.random() + 50;
+    mX = (width - 100) * (float)Math.random() + 50;
+    mY = (height - 100) * (float)Math.random() + 50;
   }
   _minions.add( new Minion( _minionHealth, mX, mY ) );
   _minionHealth += 5;
