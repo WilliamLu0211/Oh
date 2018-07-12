@@ -60,8 +60,8 @@ public class Bullet extends Unit {
     float brY = b.getY() + b.getHalfW();
     float tlX = b.getX() - b.getHalfL();
     float tlY = b.getY() - b.getHalfW();
-    return sq(_x - brX) + sq(_y - brY) < sq(_r) ||
-           sq(_x - tlX) + sq(_y - tlY) < sq(_r);
+    return sq(_x - brX) + sq(_y - brY) <= sq(_r) ||
+           sq(_x - tlX) + sq(_y - tlY) <= sq(_r);
   }
   
   private boolean touchesV2(Block b){
@@ -69,8 +69,8 @@ public class Bullet extends Unit {
     float blY = b.getY() + b.getHalfW();
     float trX = b.getX() + b.getHalfL();
     float trY = b.getY() - b.getHalfW();
-    return sq(_x - blX) + sq(_y - blY) < sq(_r) ||
-           sq(_x - trX) + sq(_y - trY) < sq(_r);
+    return sq(_x - blX) + sq(_y - blY) <= sq(_r) ||
+           sq(_x - trX) + sq(_y - trY) <= sq(_r);
   }
   
   public void spawn(){
