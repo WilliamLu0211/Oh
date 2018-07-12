@@ -7,8 +7,8 @@ public class Bullet extends Unit {
     _r = 8;
     float diffY = targetY - y, diffX = targetX - x;
     float hyp = sqrt( sq(diffY) + sq(diffX) );
-    _dy = diffY * 10 / hyp;
-    _dx = diffX * 10 / hyp;
+    _dy = diffY * 8 / hyp;
+    _dx = diffX * 8 / hyp;
   }
   
   public void move(ArrayList<Block> blocks) {

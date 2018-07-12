@@ -8,7 +8,7 @@ public class Shooter{
   
   public Shooter( int maxShots, float startX, float targetX, float targetY, ArrayList<Block> blocks){
     _bullets = new ArrayList();
-    _maxFrame = 10;
+    _maxFrame = 5;
     _frameNow = 0;
     _shootCount = 0;
     _maxShots = maxShots;

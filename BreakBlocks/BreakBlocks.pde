@@ -1,11 +1,10 @@
 ArrayList<Block> _blocks;
 Shooter _s;
 //variables related to game events
-boolean _start, _over, _readyToClick, _readyToAdd;
+boolean _start, _over, _readyToClick, _readyToAdd, _pressed;
 int _score, _pScore;
 float _blockSpawnChance, _blockSpawnCount, _doubleHealthChance;
 float _mouseX, _mouseY, _currX;
-
 
 void setup() {
 
@@ -79,6 +78,13 @@ void runGame(){
   }
   
   _s.tick();
+  
+  if (_pressed){
+    stroke(255);
+    makeLine(mouseX, mouseY);
+    stroke(0);
+  }
+  
   float x = _s.nextX();
   if (x >= 0)
     _currX = x;
@@ -126,10 +132,51 @@ void mouseClicked(){
     while (!_blocks.isEmpty())
       _blocks.remove(0);
   }
+  //if (_readyToClick){
+  //  _readyToClick = false;
+  //  updateChance();
+  //  _s = new Shooter(_score, _currX, mouseX, mouseY, _blocks);
+  //  _score ++;
+  //}
+}
+
+void mousePressed(){
+  if (_readyToClick)
+    _pressed = true;
+}
+
+void mouseReleased(){
   if (_readyToClick){
     _readyToClick = false;
+    _pressed = false;
     updateChance();
     _s = new Shooter(_score, _currX, mouseX, mouseY, _blocks);
     _score ++;
   }
+}
+
+void makeLine(float x, float y){
+  float diffX = x - _currX;
+  float diffY = y - height;
+  float hyp = sqrt( sq(diffX) + sq(diffY) );
+  float dx = diffX / hyp;
+  float dy = diffY / hyp;
+  float endX = _currX;
+  float endY = height;
+  boolean hitBox = false;
+  while (endX > 0 && endX < width && endY > 0 && !hitBox){
+    endX += dx;
+    endY += dy;
+    for (Block b : _blocks)
+      if (withinBlock( endX, endY, b ))
+        hitBox = true;
+  }
+  line(_currX, height, endX, endY);
+}
+
+boolean withinBlock(float x, float y, Block b){
+  return x > b.getX() - b.getHalfL() &&
+         x < b.getX() + b.getHalfL() &&
+         y > b.getY() - b.getHalfW() &&
+         y < b.getY() + b.getHalfW();
 }
