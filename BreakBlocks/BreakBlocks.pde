@@ -14,7 +14,7 @@ void setup() {
   _currX = width / 2;
   _score = 0;
   
-  _blockSpawnCount = 1.4;
+  _blockSpawnCount = 1.5;
   updateChance();
   _doubleHealthChance = 0.7;
   
@@ -27,11 +27,12 @@ void setup() {
 //helper methods
 void updateChance(){
   _blockSpawnChance = 1 - 1 / _blockSpawnCount;
-  _blockSpawnCount += 0.01;
+  _blockSpawnCount += 0.02;
 }
 
 void gameOver() {//oh no
   clear();
+  _blockSpawnCount = 1.5;
   fill(255);
   textSize( 64 );//font size
   text( "GAME OVER", 300, 300 );
