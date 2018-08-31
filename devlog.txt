@@ -90,7 +90,7 @@ Andrew Shao :: //same actions
 
 2018-06-03
 --------------------------------------------------------------
-Brandon Chong ::
+Brandon Chong :: Made comments about MVP.
 William Lu :: Gave suggestions
 Andrew Shao :: Wrote code that achieved basic functionality
 
@@ -108,7 +108,7 @@ Andrew Shao :: Added game start menu
 
 2018-06-07
 --------------------------------------------------------------
-Brandon Chong :: 
+Brandon Chong :: Updated Readme
 William Lu :: Nerfed score based on time, buffed score based on coins, added current score indicator
 Andrew Shao ::
 ==============================================================
